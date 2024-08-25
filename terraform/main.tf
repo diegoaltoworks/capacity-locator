@@ -1,9 +1,9 @@
-variable "PROJECT_ID" { type = string }
-variable "REGION" { type = string }
+variable "GCP_PROJECT_ID" { type = string }
+variable "GCP_REGION" { type = string }
 variable "DB_USER" { type = string }
 variable "DB_PASSWORD" { type = string }
 variable "DB_NAME" { type = string }
-variable "gcp_credentials" {
+variable "GCP_CREDENTIALS" {
   type        = string
   sensitive   = true
   description = "Google Cloud service account credentials"
@@ -19,8 +19,9 @@ terraform {
   }
 }
 provider "google" {
-  project = var.PROJECT_ID
-  region  = var.REGION
+  credentials = var.GCP_CREDENTIALS
+  project     = var.GCP_PROJECT_ID
+  region      = var.GCP_REGION
 }
 
 # Cloud SQL (PostgreSQL) Instance
@@ -48,11 +49,11 @@ resource "google_sql_user" "main" {
 resource "google_cloud_run_service" "backend" {
   name                       = "backend"
   autogenerate_revision_name = true
-  location                   = var.REGION
+  location                   = var.GCP_REGION
   template {
     spec {
       containers {
-        image = "gcr.io/${var.PROJECT_ID}/backend:latest"
+        image = "gcr.io/${var.GCP_PROJECT_ID}/backend:latest"
 
         # Environment variables for connecting to the database
         env {
@@ -89,11 +90,11 @@ resource "google_cloud_run_service_iam_member" "backend_invoker" {
 # Frontend Service
 resource "google_cloud_run_service" "frontend" {
   name     = "frontend"
-  location = var.REGION
+  location = var.GCP_REGION
   template {
     spec {
       containers {
-        image = "gcr.io/${var.PROJECT_ID}/frontend:latest"
+        image = "gcr.io/${var.GCP_PROJECT_ID}/frontend:latest"
 
         # Environment variables if needed by your frontend
       }
