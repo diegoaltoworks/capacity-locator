@@ -16,7 +16,10 @@ jobs:
       BACKEND_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:latest
 
     steps:
-    # Checkout the code
+    - name: Verify Docker installation
+      run: docker --version
+
+        # Checkout the code
     - name: Checkout code
       uses: actions/checkout@v4
 
