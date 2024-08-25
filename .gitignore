@@ -1,0 +1,12 @@
+node_modules
+.env
+.vscode
+build
+
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
+
+terraform.tfstate*
+terraform.tfvars*
+.terraform
+capacity-locator-fed89e39e239.json
