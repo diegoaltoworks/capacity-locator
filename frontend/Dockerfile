@@ -13,6 +13,9 @@ RUN npm ci --only=production
 # Copy the rest of your frontend code
 COPY . .
 
+# List files in the root working folder
+RUN ls /
+
 # Build your Remix.js app
 RUN npm run build
 
