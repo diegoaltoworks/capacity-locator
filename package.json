@@ -4,7 +4,7 @@
   "description": "## Backend We have provided a bootstrapped node/express app, but you're welcome to change this or use any framework of your choice if you would prefer.",
   "main": "index.js",
   "scripts": {
-    "tf": "terraform apply -var-file=`terraform/prod.tfvars`"
+    "tf": "cd terraform && terraform apply"
   },
   "repository": {
     "type": "git",
