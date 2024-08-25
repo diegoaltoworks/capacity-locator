@@ -14,7 +14,7 @@ RUN npm ci --only=production
 COPY . .
 
 # List files in the root working folder
-RUN ls /
+RUN ls ./
 
 # Build your Remix.js app
 RUN npm run build
